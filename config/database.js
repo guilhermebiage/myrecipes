@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/myrecipes';
 
-        const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/myrecipes';
-        console.log(`connecting to ${url}`);
-        mongoose.connect(url)
+mongoose.Promise = global.Promise
+mongoose.connect(url)
+
+module.exports = { mongoose }
+
 
