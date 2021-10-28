@@ -24,8 +24,9 @@ module.exports = app => {
 
         const ingredient = req.body
         const result = IngredientService.insert(ingredient)
-
-        res.status(201).json(result)
+        result.then((result) => {
+            res.status(201).json(result)
+        })
     })
 
     app.patch('/ingredient/:id', (req, res) => {
@@ -34,7 +35,10 @@ module.exports = app => {
         const ingredient = req.body
         const result = IngredientService.update(id, ingredient)
 
-        res.status(201).json(result)
+        result.then((result) => {
+            console.log(result)
+            res.status(201).json(result)
+        })
     })
 
     app.delete('/ingredient/:id', (req, res) => {
@@ -42,7 +46,9 @@ module.exports = app => {
         const id = req.params.id
         const result = IngredientService.delete(id)
 
-        res.status(201).json(result)
+        result.then((result) => {
+            res.status(201).json(result)
+        })
 
     })
 

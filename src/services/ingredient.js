@@ -23,28 +23,25 @@ class IngredientService{
 
     async insert(ingredient) {
         const result = await Ingredient
-                                .create(ingredient, (e) => {
-                                    console.log(e)
-                                    return
-                                })
+                                .create(ingredient)
 
         return result
     }
 
     async update(id, ingredient) {
         const result = await Ingredient
-                                .updateOne({ _id: id }, ingredient, (e) => {
-                                    console.log(e)
-                                    return
-                                })
+                                .findOneAndUpdate({ _id: id }, ingredient, {new: true})
+                                .lean()
+                                .exec()
+
+        return result
     }   
 
     async delete(id) {
         const result = await Ingredient
-                                .deleteOne({ _id : id }, (e) => {
-                                    console.log(e)
-                                    return
-                                })
+                                .deleteOne({ _id : id })
+
+        return result
     }
 
     async getByName(ingredientName) {
