@@ -1,22 +1,28 @@
 const IngredientService = require('../services/ingredient')
+const mongoose = require('mongoose')
 
 module.exports = app => {
     
     app.get('/ingredient', (req, res) => {
 
         const ingredients = IngredientService.getAll()
-        ingredients.then( (ingredients) => {
-            res.status(201).json(ingredients)
+        ingredients.then((result) => {
+            res.status(201).json(result)
+        }, (e) => {
+            res.status(400).json(e)
         })
 
+        
     })
 
     app.get('/ingredient/:id', (req, res) => {
 
         const ingredient = IngredientService.get(req.params.id)
-        ingredient.then( (ingredient) => {
-            res.status(201).json(ingredient)
-        } )
+        ingredient.then((result) => {
+            res.status(201).json(result)
+        }, (e) => {
+            res.status(400).json(e)
+        })
 
     })
 
@@ -36,8 +42,9 @@ module.exports = app => {
         const result = IngredientService.update(id, ingredient)
 
         result.then((result) => {
-            console.log(result)
             res.status(201).json(result)
+        }, (e) => {
+            res.status(400).json(e)
         })
     })
 
@@ -48,6 +55,8 @@ module.exports = app => {
 
         result.then((result) => {
             res.status(201).json(result)
+        }, (e) => {
+            res.status(400).json(e)
         })
 
     })

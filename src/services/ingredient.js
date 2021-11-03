@@ -7,8 +7,7 @@ class IngredientService{
         const ingredients = await Ingredient
                                 .find({})
                                 .lean()
-                                .exec()
-    
+                                .exec()  
         return ingredients;
     }
 
@@ -23,7 +22,14 @@ class IngredientService{
 
     async insert(ingredient) {
         const result = await Ingredient
-                                .create(ingredient)
+                                .create(ingredient, (e, result)=>{
+                                    if (e){
+                                        throw e
+                                    }
+                                    else{
+                                        return result
+                                    }
+                                })
 
         return result
     }
@@ -40,6 +46,7 @@ class IngredientService{
     async delete(id) {
         const result = await Ingredient
                                 .deleteOne({ _id : id })
+                                .exec()
 
         return result
     }
