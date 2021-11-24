@@ -7,7 +7,8 @@ const schema = new Schema({
     portion: { type: Number, default: 1 },
     instructions: { type: String, required: true },
     ingredients: [{
-        ingredient: { type: Schema.Types.ObjectId, ref: 'Ingredient' }
+        ingredient: {type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient'},
+        quantity: {type: Number, required: false},
     }]
 })
 mongoose.model('recipes', schema)
